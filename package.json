@@ -1,0 +1,37 @@
+{
+  "name": "buntzen-lake-parking-bot",
+  "version": "1.0.0",
+  "description": "Automated bot for booking parking passes at Buntzen Lake",
+  "main": "src/bot.js",
+  "scripts": {
+    "start": "node src/bot.js",
+    "dev": "nodemon src/bot.js",
+    "schedule": "node src/scheduler.js",
+    "cli": "node src/cli.js",
+    "init": "node src/cli.js init",
+    "setup": "node setup.js",
+    "test": "jest"
+  },
+  "keywords": [
+    "bot",
+    "parking",
+    "buntzen-lake",
+    "automation"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "puppeteer": "^21.5.2",
+    "dotenv": "^16.3.1",
+    "winston": "^3.11.0",
+    "node-cron": "^3.0.3",
+    "commander": "^11.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1",
+    "jest": "^29.7.0"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}
