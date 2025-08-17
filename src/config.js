@@ -7,6 +7,8 @@ console.log("PHONE_NUMBER:", process.env.PHONE_NUMBER);
 console.log("VERIFICATION_CODE:", process.env.VERIFICATION_CODE);
 console.log("LICENSE_PLATE:", process.env.LICENSE_PLATE);
 console.log("PREFERRED_DATE:", process.env.PREFERRED_DATE);
+console.log("DELAY_BETWEEN_ACTIONS:", process.env.DELAY_BETWEEN_ACTIONS);
+console.log("LONG_WAIT_TIME:", process.env.LONG_WAIT_TIME);
 console.log("Current working directory:", process.cwd());
 console.log("Env file path:", path.resolve(__dirname, "../.env"));
 
@@ -28,7 +30,8 @@ const config = {
 
   // Bot settings
   headless: process.env.HEADLESS === "true",
-  delayBetweenActions: parseInt(process.env.DELAY_BETWEEN_ACTIONS) || 2000,
+  delayBetweenActions: parseInt(process.env.DELAY_BETWEEN_ACTIONS) || 100,
+  longWaitTime: parseInt(process.env.LONG_WAIT_TIME) || 500,
 
   // Logging
   logLevel: process.env.LOG_LEVEL || "info",

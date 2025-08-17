@@ -226,7 +226,7 @@ class BuntzenLakeBot {
       logger.logStep(`Selecting pass type: ${config.passType}`);
 
       // Wait for pass options to load
-      await utils.delay(2000); // Give time for page to load
+      await utils.delay(config.longWaitTime); // Give time for page to load
 
       // Try to find pass cards by text content
       const passCards = await this.page.$$(".gridCard, .cardRow .gridCard");
@@ -293,7 +293,7 @@ class BuntzenLakeBot {
       );
 
       // Also wait a bit more for the date content to fully load
-      await utils.delay(1000);
+      await utils.delay(config.longWaitTime);
 
       // Debug: Log the page structure around the new date picker
       try {
@@ -510,7 +510,7 @@ class BuntzenLakeBot {
       await utils.waitForElementVisible(this.page, config.selectors.dateMain);
 
       // Also wait a bit more for the date content to fully load
-      await utils.delay(1000);
+      await utils.delay(config.longWaitTime);
 
       // Debug: Log the page structure around date selection
       try {
@@ -743,7 +743,7 @@ class BuntzenLakeBot {
       logger.logStep("Handling booking page for signed-in user");
 
       // Wait for the page to load completely
-      await utils.delay(3000);
+      await utils.delay(config.longWaitTime);
 
       // Check if we need to select a vehicle
       const vehicleSelectExists = await utils.elementExists(
@@ -785,7 +785,7 @@ class BuntzenLakeBot {
 
       // Click on the vehicle selector to open it
       await utils.clickElement(this.page, "#selectVehicleSmartSelect");
-      await utils.delay(1000);
+      await utils.delay(config.longWaitTime);
 
       // Check if we need to add a new vehicle
       if (!this.vehicleAdded) {
@@ -797,7 +797,7 @@ class BuntzenLakeBot {
         );
         if (addVehicleOption) {
           await addVehicleOption.click();
-          await utils.delay(1000);
+          await utils.delay(config.longWaitTime);
 
           // Fill vehicle information
           await this.fillVehicleForm();
@@ -818,7 +818,7 @@ class BuntzenLakeBot {
         }
       }
 
-      await utils.delay(1000);
+      await utils.delay(config.longWaitTime);
       logger.logCompletion("Vehicle selection completed for signed-in user");
       return true;
     } catch (error) {
@@ -872,7 +872,7 @@ class BuntzenLakeBot {
 
       // Save vehicle
       await utils.clickElement(this.page, config.selectors.saveVehicleBtn);
-      await utils.delay(2000);
+      await utils.delay(config.longWaitTime);
 
       this.vehicleAdded = true;
       logger.logCompletion("Vehicle form filled and saved");
@@ -891,7 +891,7 @@ class BuntzenLakeBot {
       logger.logStep("Handling login process");
 
       // Wait for the login form to be visible
-      await utils.delay(2000);
+      await utils.delay(config.longWaitTime);
 
       // Take a screenshot of the login form for debugging
       await utils.takeScreenshot(this.page, "login_form");
@@ -970,7 +970,7 @@ class BuntzenLakeBot {
       logger.logSuccess("Phone number filled successfully");
 
       // Wait longer for the page to fully load and stabilize
-      await utils.delay(3000);
+      await utils.delay(config.longWaitTime);
 
       // Click next button - try multiple selectors
       logger.logStep("Clicking Next button");
@@ -1054,7 +1054,7 @@ class BuntzenLakeBot {
       logger.logStep("Handling OTP verification");
 
       // Wait for OTP input fields to appear
-      await utils.delay(3000);
+      await utils.delay(config.longWaitTime);
 
       // Take a screenshot for debugging
       await utils.takeScreenshot(this.page, "otp_form");
@@ -1334,7 +1334,7 @@ class BuntzenLakeBot {
       logger.logStep("Handling post-login flow");
 
       // Wait for the page to load and redirect back to booking page
-      await utils.delay(5000);
+      await utils.delay(config.longWaitTime);
 
       // Take a screenshot to see what page we're on
       await utils.takeScreenshot(this.page, "post_login_page");
@@ -1405,7 +1405,7 @@ class BuntzenLakeBot {
       if (smartSelectLink) {
         logger.logStep("Clicking on smart-select link to open popup");
         await smartSelectLink.click();
-        await utils.delay(1000);
+        await utils.delay(config.longWaitTime);
 
         // Wait for the vehicle selection popup to appear
         const vehiclePopupSelector =
@@ -1429,7 +1429,7 @@ class BuntzenLakeBot {
           logger.logSuccess(`Filled search input with: ${searchTerm}`);
 
           // Wait a moment for search results to filter
-          await utils.delay(1000);
+          await utils.delay(config.longWaitTime);
         }
 
         // Look for the vehicle that matches our model
@@ -1453,7 +1453,7 @@ class BuntzenLakeBot {
           // Click on the matching vehicle
           try {
             // Wait for the element to be clickable
-            await utils.delay(500);
+            await utils.delay(config.delayBetweenActions);
 
             // Try to click the element
             await vehicleElement[0].click();
@@ -1488,7 +1488,7 @@ class BuntzenLakeBot {
           if (flexibleVehicleElement.length > 0) {
             try {
               // Wait for the element to be clickable
-              await utils.delay(500);
+              await utils.delay(config.delayBetweenActions);
 
               // Try to click the element
               await flexibleVehicleElement[0].click();
@@ -1594,7 +1594,7 @@ class BuntzenLakeBot {
         }
 
         // Wait a bit more for the page to fully update
-        await utils.delay(2000);
+        await utils.delay(config.longWaitTime);
 
         logger.logCompletion("Vehicle selection from dropdown completed");
         return true;
@@ -1650,7 +1650,7 @@ class BuntzenLakeBot {
         }
 
         // Wait for the selection to take effect
-        await utils.delay(2000);
+        await utils.delay(config.longWaitTime);
 
         logger.logCompletion("Vehicle selection from dropdown completed");
         return true;
@@ -1783,7 +1783,7 @@ class BuntzenLakeBot {
         await this.addToCart();
 
         // Wait for login form to appear
-        await utils.delay(3000);
+        await utils.delay(config.longWaitTime);
 
         // Check if login form is visible
         const loginFormVisible = await utils.elementExists(
