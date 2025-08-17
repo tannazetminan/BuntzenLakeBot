@@ -184,7 +184,7 @@ class BotScheduler {
     return {
       exists: true,
       running: job.running,
-      nextDate: job.nextDate(),
+      scheduled: true,
     };
   }
 
@@ -208,3 +208,28 @@ class BotScheduler {
 }
 
 module.exports = BotScheduler;
+
+// If this file is run directly, start the default scheduler
+if (require.main === module) {
+  const scheduler = new BotScheduler();
+
+  logger.logStep("Starting Buntzen Lake Bot Scheduler...");
+  logger.logStep("Press Ctrl+C to stop the scheduler");
+
+  // Start the default scheduler
+  scheduler.startDefaultScheduler();
+
+  // Keep the process running
+  process.on("SIGINT", () => {
+    logger.logStep("Shutting down scheduler...");
+    scheduler.stopAllJobs();
+    process.exit(0);
+  });
+
+  logger.logSuccess("Scheduler is running. Jobs scheduled:");
+  const jobs = scheduler.getScheduledJobs();
+  jobs.forEach((jobName) => {
+    const status = scheduler.getJobStatus(jobName);
+    logger.logStep(`- ${jobName}: ${status.running ? "Running" : "Scheduled"}`);
+  });
+}
